@@ -18,24 +18,19 @@ export class Posts extends LitElement {
     event.preventDefault();
     
     const formData = new FormData(event.target)
-    
-    console.log(formData)
     const formValues = Object.fromEntries(formData.entries())
-
-    console.log(formValues)
-
-    const urlInput = event.target.getAttribute('name')
-
+    const url = `${ formValues.name }/wp-json/wp/v2/posts`
+    
     try {
-        const response = await fetch(urlInput);
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        const data = await response.json();
-        this.posts = data;
-
-    } catch (error) {
-        console.log(`Error: ${error.message}`);
+      const response = await fetch(url)
+      if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json();
+      this.posts = data;
+    }
+    catch (error) {
+      console.log(`Error: ${error.message}`);
     }
   }
 
@@ -43,8 +38,9 @@ export class Posts extends LitElement {
     return html`
        <form @submit=${this.handleFormSubmit}>
         <label for="name">Enter WordPress URL:</label>
-        <input type="text" id="name" placeholder="" />
-        <button type="submit">Submit</button>
+        <input type="text" id="name" name="name" required />
+        
+        <input type="submit" value="Submit" />
       </form>
       <p>Hello, ${this.posts}!</p>`;
   }
