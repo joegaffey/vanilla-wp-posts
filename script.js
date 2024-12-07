@@ -1,4 +1,5 @@
 import {LitElement, html, css} from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js';
+import safeHtml from 'https://cdn.jsdelivr.net/npm/safe-html@1.0.0/safe-html.min.js';
 
 export class Posts extends LitElement {
   static properties = {
@@ -7,46 +8,46 @@ export class Posts extends LitElement {
   };
 
   static styles = css`
-.post-list {
-  font-family: Arial, sans-serif;
-}
+  .post-list {
+    font-family: Arial, sans-serif;
+  }
 
-h2 {
-  color: #333;
-  font-family: Arial, sans-serif;
-}
+  h2 {
+    color: #333;
+    font-family: Arial, sans-serif;
+  }
 
-ul {
-  list-style-type: none;
-  padding: 0;
-}
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
 
-li {
-  margin-bottom: 20px;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 15px;
-}
+  li {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 15px;
+  }
 
-h3 {
-  color: #0073e6;
-}
+  h3 {
+    color: #0073e6;
+  }
 
-.error {
-  color: red;
-}
+  .error {
+    color: red;
+  }
 
-a {
-  color: #0073e6;
-  text-decoration: none;
-}
+  a {
+    color: #0073e6;
+    text-decoration: none;
+  }
 
-a:hover {
-  text-decoration: underline;
-}`;
+  a:hover {
+    text-decoration: underline;
+  }`;
 
   constructor() {
     super();
-    this.url = 'test';
+    this.url = '';
     this.posts = [];
   }
   
@@ -78,7 +79,7 @@ a:hover {
       ${this.posts.map((post) =>
           html`<li>
           <h3>${post.title.rendered}</h3>
-            <p>${post.excerpt.rendered}</p>
+            <p>${unsafeHTML(post.excerpt.rendered)}</p>
           </li>`
         )}
       </ul>`
