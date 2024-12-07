@@ -1,14 +1,7 @@
 import safeHtml from 'https://cdn.jsdelivr.net/npm/safe-html@1.0.0/+esm';
-
-const properties = {
-  url: {}, 
-  posts: []
-};
   
 async function handleFormSubmit(event) {
   event.preventDefault();
-  console.log(event)
-
   const formData = new FormData(event.target)
   const formValues = Object.fromEntries(formData.entries())
   const url = `${ formValues.name }/wp-json/wp/v2/posts`
@@ -19,8 +12,7 @@ async function handleFormSubmit(event) {
       console.log(`HTTP error! Status: ${response.status}`);
     }
     const data = await response.json();
-    this.posts = data;
-    render();
+    render(data);
   }
   catch (error) {
     console.log(`Error: ${error.message}`);
@@ -29,12 +21,12 @@ async function handleFormSubmit(event) {
 
 document.querySelector('form').addEventListener("submit", handleFormSubmit);
 
-function render() {
+function render(data) {
   let posts = '';
-  if(this.posts && this.posts.length > 0) {
+  if(data && data.length > 0) {
     posts = `<h2>Latest Posts</h2>
     <ul class="post-list">`;
-    posts.forEach((post) => {
+    data.forEach((post) => {
         posts += `<li>
         <h3>${safeHtml(post.title.rendered)}</h3>
           <p>${safeHtml(post.excerpt.rendered)}</p>
@@ -42,6 +34,5 @@ function render() {
       });
     posts += `</ul>`
   }
-
-  console.log(posts);
+  document.querySelector('#postsContainer').innerHTML = posts;
 }
