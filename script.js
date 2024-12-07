@@ -77,14 +77,17 @@ a:hover {
         
         <input type="submit" value="Submit" />
       </form>
-      <ul>
+      ${this.posts ?
+      test
+      html`<ul class="post-list">
       ${this.posts.map((post) =>
           html`<li>
           <h3>${post.title.rendered }</h3>
             <p>${post.excerpt.rendered}</p>
           </li>`
         )}
-      </ul>`;
+      </ul>`
+      }`;
   }
 }
 customElements.define('wp-posts', Posts);
