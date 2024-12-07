@@ -7,6 +7,7 @@ const properties = {
   
 async function handleFormSubmit(event) {
   event.preventDefault();
+  console.log(event)
 
   const formData = new FormData(event.target)
   const formValues = Object.fromEntries(formData.entries())
@@ -15,7 +16,7 @@ async function handleFormSubmit(event) {
   try {
     const response = await fetch(url)
     if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+      console.log(`HTTP error! Status: ${response.status}`);
     }
     const data = await response.json();
     this.posts = data;
@@ -25,6 +26,8 @@ async function handleFormSubmit(event) {
     console.log(`Error: ${error.message}`);
   }
 }
+
+document.querySelector('form').addEventListener("submit", handleFormSubmit);
 
 function render() {
   let posts = '';
@@ -37,7 +40,7 @@ function render() {
           <p>${safeHtml(post.excerpt.rendered)}</p>
         </li>`
       });
-    </ul>`
+    posts += `</ul>`
   }
 
   console.log(posts);

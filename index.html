@@ -7,7 +7,6 @@
 
   <title>Vanilla WP Posts</title>
 
-  <script src="/script.js" type="module"></script>
   <style>
   .post-list {
     font-family: Arial, sans-serif;
@@ -50,7 +49,7 @@
   <body>
     <div class="wrapper">
       <div class="content" role="main">
-        <form onsubmit="handleFormSubmit()">
+        <form>
           <label for="name">Enter WordPress URL:</label>
           <input type="text" id="name" name="name" required />
           <input type="submit" value="Submit" />
@@ -58,4 +57,5 @@
       </div>
     </div>
   </body>
+  <script src="/script.js" type="module"></script>
 </html>
