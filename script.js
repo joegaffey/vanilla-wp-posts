@@ -1,34 +1,50 @@
-/*
-  This is your site JavaScript code - you can add interactivity!
-*/
+import {LitElement, html, css} from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js';
 
-// Print a message in the browser's dev tools console each time the page loads
-// Use your menus or right-click / control-click and choose "Inspect" > "Console"
-console.log("Hello 🌎");
-
-/* 
-Make the "Click me!" button move when the visitor clicks it:
-- First add the button to the page by following the steps in the TODO 🚧
-*/
-const btn = document.querySelector("button"); // Get the button from the page
-if (btn) { // Detect clicks on the button
-  btn.onclick = function () {
-    // The 'dipped' class in style.css changes the appearance on click
-    btn.classList.toggle("dipped");
+export class SimpleGreeting extends LitElement {
+  static properties = {
+    name: {},
   };
+  // Define scoped styles right with your component, in plain CSS
+  static styles = css`
+    :host {
+      color: blue;
+    }
+  `;
+
+  constructor() {
+    super();
+    // Declare reactive properties
+    this.name = 'World';
+  }
+
+  // Render the UI as a function of component state
+  render() {
+    return html`<p>Hello, ${this.name}!</p>`;
+  }
 }
+customElements.define('simple-greeting', SimpleGreeting);
 
+export class Posts extends LitElement {
+  static properties = {
+    name: {},
+  };
+  // Define scoped styles right with your component, in plain CSS
+  static styles = css``;
 
-// ----- GLITCH STARTER PROJECT HELPER CODE -----
+  constructor() {
+    super();
+    this.url = 'test';
+  }
 
-// Open file when the link in the preview is clicked
-let goto = (file, line) => {
-  window.parent.postMessage(
-    { type: "glitch/go-to-line", payload: { filePath: file, line: line } }, "*"
-  );
-};
-// Get the file opening button from its class name
-const filer = document.querySelectorAll(".fileopener");
-filer.forEach((f) => {
-  f.onclick = () => { goto(f.dataset.file, f.dataset.line); };
-});
+  // Render the UI as a function of component state
+  render() {
+    return html`
+       <form>
+        <label for="name">Enter WordPress URL:</label>
+        <input type="text" id="name" placeholder="" />
+        <button type="submit">Submit</button>
+      </form>
+      <p>Hello, ${this.url0}!</p>`;
+  }
+}
+customElements.define('wp-posts', Posts);
