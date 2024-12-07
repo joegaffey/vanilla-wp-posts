@@ -5,8 +5,43 @@ export class Posts extends LitElement {
     url: {},
     posts: []
   };
-  // Define scoped styles right with your component, in plain CSS
-  static styles = css``;
+
+  static styles = css`
+.post-list {
+  font-family: Arial, sans-serif;
+}
+
+h2 {
+  color: #333;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 15px;
+}
+
+h3 {
+  color: #0073e6;
+}
+
+.error {
+  color: red;
+}
+
+a {
+  color: #0073e6;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}`;
 
   constructor() {
     super();
@@ -42,7 +77,14 @@ export class Posts extends LitElement {
         
         <input type="submit" value="Submit" />
       </form>
-      <p>Hello, ${this.posts}!</p>`;
+      <ul>
+      ${this.posts.map((post) =>
+          html`<li>
+          <h3>${post.title.rendered }</h3>
+            <p>${post.excerpt.rendered}</p>
+          </li>`
+        )}
+      </ul>`;
   }
 }
 customElements.define('wp-posts', Posts);
