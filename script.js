@@ -13,6 +13,7 @@ export class Posts extends LitElement {
 
 h2 {
   color: #333;
+  font-family: Arial, sans-serif;
 }
 
 ul {
@@ -70,6 +71,19 @@ a:hover {
   }
 
   render() {
+    let posts = '';
+    if(this.posts && this.posts.length > 0) {
+      posts = html`<h2>Latest Posts</h2>
+      <ul class="post-list">
+      ${this.posts.map((post) =>
+          html`<li>
+          <h3>${post.title.rendered}</h3>
+            <p>${post.excerpt.rendered}</p>
+          </li>`
+        )}
+      </ul>`
+    }
+    
     return html`
        <form @submit=${this.handleFormSubmit}>
         <label for="name">Enter WordPress URL:</label>
@@ -77,17 +91,7 @@ a:hover {
         
         <input type="submit" value="Submit" />
       </form>
-      ${this.posts ?
-      test
-      html`<ul class="post-list">
-      ${this.posts.map((post) =>
-          html`<li>
-          <h3>${post.title.rendered }</h3>
-            <p>${post.excerpt.rendered}</p>
-          </li>`
-        )}
-      </ul>`
-      }`;
+      ${posts}`;
   }
 }
 customElements.define('wp-posts', Posts);
