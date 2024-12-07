@@ -1,18 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" href="https://glitch.com/favicon.ico" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="https://glitch.com/favicon.ico" />
 
-    <title>Lit WP Posts</title>
+  <title>Vanilla WP Posts</title>
 
-    <script src="/script.js" type="module"></script>
+  <script src="/script.js" type="module"></script>
+  <style>
+  .post-list {
+    font-family: Arial, sans-serif;
+  }
+
+  h2 {
+    color: #333;
+    font-family: Arial, sans-serif;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  li {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 15px;
+  }
+
+  h3 {
+    color: #0073e6;
+  }
+
+  .error {
+    color: red;
+  }
+
+  a {
+    color: #0073e6;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+  </style>
   </head>
   <body>
     <div class="wrapper">
       <div class="content" role="main">
-        <wp-posts></wp-posts>
+        <form onsubmit="handleFormSubmit()">
+          <label for="name">Enter WordPress URL:</label>
+          <input type="text" id="name" name="name" required />
+          <input type="submit" value="Submit" />
+        </form>
       </div>
     </div>
   </body>
