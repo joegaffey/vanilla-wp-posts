@@ -2,7 +2,8 @@ import {LitElement, html, css} from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core
 
 export class Posts extends LitElement {
   static properties = {
-    name: {},
+    url: {},
+    posts: []
   };
   // Define scoped styles right with your component, in plain CSS
   static styles = css``;
@@ -15,8 +16,15 @@ export class Posts extends LitElement {
   
   async handleFormSubmit(event) {
     event.preventDefault();
+    
+    const formData = new FormData(event.target)
+    
+    console.log(formData)
+    const formValues = Object.fromEntries(formData.entries())
 
-    const urlInput = document.getElementById('urlForm').value;
+    console.log(formValues)
+
+    const urlInput = event.target.getAttribute('name')
 
     try {
         const response = await fetch(urlInput);
@@ -31,10 +39,9 @@ export class Posts extends LitElement {
     }
   }
 
-  // Render the UI as a function of component state
   render() {
     return html`
-       <form id="urlForm" @submit=${this.handleFormSubmit}>
+       <form @submit=${this.handleFormSubmit}>
         <label for="name">Enter WordPress URL:</label>
         <input type="text" id="name" placeholder="" />
         <button type="submit">Submit</button>
